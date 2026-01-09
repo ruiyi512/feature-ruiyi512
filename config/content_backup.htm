@@ -413,11 +413,11 @@ git pull origin main –rebase</pre>
 <p>逐漸的發現在連接關節、模型複雜度<span>(</span>模型網格數量<span>)</span>等等，各種小小問題加總起來，會導致完全沒辦法運行模擬。</p>
 <p>1.openduck原版模型過於複雜，因此要自行繪製模型去簡化，避免電腦計算不及直接穿模，主要目的就是為了減輕電腦負擔，又不影響模擬結果。</p>
 <p>2.各種關節的層級與連接等理念其實非常重要，如果完全理解這意味著更換各種專案，都能快速建置模擬，並且分析問題為何。</p>
-<p>建置出模擬的模型也組裝完成後，也非常清楚知道，就算真的做出實體，也沒有辦法讓他自己走路，反覆思考也認清正因為<span>nvidia</span>是一間大公司，並且擁有足夠的技術，因此</p>
+<p>建置出模擬的模型也組裝完成後，也非常清楚知道，就算真的做出實體，也沒有辦法讓他自己走路，反覆思考也認清正因為<span>nvidia</span>是一間大公司，並且擁有足夠的技術，因此現階段使用webots進行模擬普通的自動控制已經非常足夠。<br/><br/>plotter：</p>
+<p>plotter繪圖機看起來似乎很簡單</p>
 <p><br/> plotter：</p>
 <p>關鍵字：plotter解說</p>
-<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/VOyhUiU_arg?si=9aS9bXAEPlcMSyoz" title="YouTube video player" width="560"></iframe></p>
-<h2>41323142：楊紹凱</h2>
+<p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/VOyhUiU_arg?si=9aS9bXAEPlcMSyoz" title="YouTube video player" width="560"></iframe></p><h2>41323142：楊紹凱</h2>
 <h2>41323145：熊有為</h2>
 <p>製作plotter心得:</p>
 <p data-end="72" data-start="0">這次在 Webots 製作 Plotter 的操作流程，主要是在 Scene Tree 逐層把機構「接起來」並讓控制器能「叫得到」裝置。先把場景底板（RectangleArena、背景光源）建好，接著在 Robot 底下依序建立各段 HingeJoint，重點是把 jointParameters 的 <em data-end="172" data-start="166">axis</em>、<em data-end="181" data-start="173">anchor</em>、以及必要的 <em data-end="207" data-start="188">minStop / maxStop</em> 檢查清楚，避免關節方向或支點位置錯誤造成整體幾何跑掉。每個關節的 device 也要確實放入 RotationalMotor，並且把 motor 的 name（如 t1、t2）固定一致，不然控制器用 <code data-end="334" data-start="321">getDevice()</code> 會找不到。連桿端用 endPoint 的 Solid / SolidReference（solidName） 方式把 link 串接，配合 DEF 命名讓結構更好管理、也比較不容易接錯。最後再確認各 Solid 的 translation/rotation、rotationStep，以及 physics（密度、質量設定）與 boundingObject，確保模擬運動比較穩定。</p>
